@@ -2,10 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   env : {
-    PGUSER : "testuser",
+    PGUSER : "username",
     PGHOST : "localhost",
     PGDATABASE : "BloggingWebsite",
-    PGPASSWORD : "1234",
+    PGPASSWORD : "pasword1234",
     PGPORT : 5432,
   }
 }
