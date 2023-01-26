@@ -11,18 +11,24 @@ const SignupForm = ({ usertype }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [isError, setIsError] = useState(false)
     const handleAdminSignup = () => {
         console.log("Admin Login");
     }
 
     const handleAuthorSignup = async () => {
-        const response = await fetch(`/api/signup`, {
-            body: JSON.stringify({firstName, lastName, username, email, password, usertype}),
-            method: "POST"
-        })
-        const data = await response.json()
-        if(data.message === 'Successfullty SignUp'){
-            router.push('/author')
+        if(password === confirmPassword){
+            const response = await fetch(`/api/signup`, {
+                body: JSON.stringify({firstName, lastName, username, email, password, usertype}),
+                method: "POST"
+            })
+            const data = await response.json()
+            if(data.message === 'Successfullty SignUp'){
+                router.push('/author')
+            }
+
+        }else{
+            setIsError(true)
         }
     }
     return (
@@ -64,8 +70,8 @@ const SignupForm = ({ usertype }) => {
                     noValidate
                     autoComplete="off"
                 >
-                    <TextField id="outlined-basic" value={password} onChange={(e) => setPassword(e.target.value)} type="password" label="Password" variant="outlined" />
-                    <TextField id="outlined-basic" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} type="password" label="Confirm Password" variant="outlined" />
+                    <TextField id="outlined-basic" helperText={isError && "Not Match Password and Confirm Password."} error={isError ? true : false} value={password} onChange={(e) => setPassword(e.target.value)} type="password" label="Password" variant="outlined" />
+                    <TextField id="outlined-basic" helperText={isError && "Not Match Password and Confirm Password."} error={isError ? true : false}  value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} type="password" label="Confirm Password" variant="outlined" />
                 </Box>
                 <Box
                     sx={{

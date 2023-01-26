@@ -4,7 +4,6 @@ const LoginPage = () => {
     return (
         <div className='loginPageCard'>
             <LoginFrom usertype="author"/>
-           
         </div>
     )
 }
